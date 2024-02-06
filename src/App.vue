@@ -1,26 +1,62 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="grid">
+    <control-date-single
+      :control="single"
+      @input="inputSingle"
+    ></control-date-single>
+    <control-date-range
+      :control="range"
+      @input="inputRange"
+    ></control-date-range>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ControlDateSingle from './components/ControlDateSingle.vue';
+import ControlDateRange from './components/ControlDateRange.vue';
 
 export default {
   name: 'App',
+  data() {
+    return {
+      single: {
+        property: 'date',
+        type: 'single',
+        id: 'id45',
+        name: 'DATE',
+        required: true,
+        value: '28.02.2024',
+        dependency: 'id6',
+      },
+      range: {
+        property: 'date',
+        type: 'range',
+        id: 'id45',
+        name: 'DATE',
+        required: true,
+        value: ['20.02.2024', '28.02.2024'],
+        dependency: 'id6',
+      },
+    };
+  },
   components: {
-    HelloWorld
-  }
-}
+    ControlDateSingle,
+    ControlDateRange,
+  },
+  methods: {
+    inputSingle({ value }) {
+      this.single.value = value;
+    },
+    inputRange({ value }) {
+      this.range.value = value;
+    },
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.grid {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
